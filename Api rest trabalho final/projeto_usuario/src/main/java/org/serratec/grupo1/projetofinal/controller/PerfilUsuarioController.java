@@ -31,28 +31,28 @@ public class PerfilUsuarioController {
 	private PerfilUsuarioService perfilUsuarioService;
 
 	@GetMapping
-	@Operation(summary = "Retornar perfils de usuário", description = "Retorna todos os perfils de usuário", tags = {
-			"PerfilUsuario" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+	@Operation(summary = "Retornar perfils de usuário", description = "Retorna todos os perfils de usuário", tags = {"PerfilUsuario" }, responses = {
+			@ApiResponse(description = "Sucesso", responseCode = "200", content = {
 					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
-					@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
-					@ApiResponse(responseCode = "401", description = "Não autorizado"),
-					@ApiResponse(responseCode = "403", description = "Proibido"),
-					@ApiResponse(responseCode = "404", description = "Não encontrado"),
-					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+			@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
+			@ApiResponse(responseCode = "401", description = "Não autorizado"),
+			@ApiResponse(responseCode = "403", description = "Proibido"),
+			@ApiResponse(responseCode = "404", description = "Não encontrado"),
+			@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
 	public ResponseEntity<List<PerfilUsuarioResponseDto>> obterTodos() {
 		return ResponseEntity.ok(perfilUsuarioService.obterTodos());
 	}
 
 	@GetMapping("/{id}")
-	@Operation(summary = "Buscar perfil de usuário", description = "Busca um perfil de usuário", tags = {
-			"PerfilUsuario" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+	@Operation(summary = "Buscar perfil de usuário", description = "Busca um perfil de usuário", tags = {"PerfilUsuario" }, responses = {
+			@ApiResponse(description = "Sucesso", responseCode = "200", content = {
 					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
-					@ApiResponse(responseCode = "204", description = "Solicitação bem sucedida"),
-					@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
-					@ApiResponse(responseCode = "401", description = "Não autorizado"),
-					@ApiResponse(responseCode = "403", description = "Proibido"),
-					@ApiResponse(responseCode = "404", description = "Não encontrado"),
-					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+			@ApiResponse(responseCode = "204", description = "Solicitação bem sucedida"),
+			@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
+			@ApiResponse(responseCode = "401", description = "Não autorizado"),
+			@ApiResponse(responseCode = "403", description = "Proibido"),
+			@ApiResponse(responseCode = "404", description = "Não encontrado"),
+			@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
 	public ResponseEntity<PerfilUsuarioResponseDto> obterPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(perfilUsuarioService.obterPorId(id));
 
