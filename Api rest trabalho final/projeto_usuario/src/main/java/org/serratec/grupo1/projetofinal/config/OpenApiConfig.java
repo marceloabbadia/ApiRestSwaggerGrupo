@@ -16,7 +16,8 @@ public class OpenApiConfig {
 			.info(new Info()
 				.title("RESTful API - Grupo 1")
 				.version("v1.0.2")
-				.description("Api pra projetos e tarefas")
+				.description("Api pra projetos e tarefas: Ana Carolina Albertini, Julia Soares, Marcelo Abbadia,"
+						+ "Michel Couto, Pedro Oliveira, Vinicius Diniz")
 				.termsOfService("https://grupo1.com.br")
 				.license(
 					new License()

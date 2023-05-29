@@ -2,6 +2,7 @@ package org.serratec.grupo1.projetofinal.controller;
 
 import java.util.List;
 
+import org.serratec.grupo1.projetofinal.dto.perfilusuario.PerfilUsuarioResponseDto;
 import org.serratec.grupo1.projetofinal.dto.projeto.ProjetoRequestDto;
 import org.serratec.grupo1.projetofinal.dto.projeto.ProjetoResponseDto;
 import org.serratec.grupo1.projetofinal.model.Projeto;
@@ -16,65 +17,100 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-	
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 @RestController
 @RequestMapping("/api/projetos")
 public class ProjetoController {
 
-	
 	@Autowired
 	private ProjetoService projetoService;
-	 
+
 	@GetMapping
-	public ResponseEntity<List<ProjetoResponseDto>> obterTodos (){
+	@Operation(summary = "Retornar projetos", description = "Retorna todos os projetos inseridos.", tags = {
+			"Projetos" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+					@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
+					@ApiResponse(responseCode = "401", description = "Não autorizado"),
+					@ApiResponse(responseCode = "403", description = "Proibido"),
+					@ApiResponse(responseCode = "404", description = "Não encontrado"),
+					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+	public ResponseEntity<List<ProjetoResponseDto>> obterTodos() {
 		return ResponseEntity.ok(projetoService.obterTodos());
 	}
-	/* 
-	@GetMapping
-	public ResponseEntity<List<ProjetoResponseDto>> findAll (){
-		return ResponseEntity.ok(projetoService.findAll());
-	}
-	*/
-	
-	@GetMapping ("/{id}")
-	public ResponseEntity<ProjetoResponseDto> obterPorId (@PathVariable Long id ){
-		return  ResponseEntity.ok(projetoService.obterPorId(id));
-		
+
+	@GetMapping("/{id}")
+	@Operation(summary = "Buscar projeto", description = "Busca um projeto por id", tags = { "Projetos" }, responses = {
+			@ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+			@ApiResponse(responseCode = "204", description = "Solicitação bem sucedida"),
+			@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
+			@ApiResponse(responseCode = "401", description = "Não autorizado"),
+			@ApiResponse(responseCode = "403", description = "Proibido"),
+			@ApiResponse(responseCode = "404", description = "Não encontrado"),
+			@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+	public ResponseEntity<ProjetoResponseDto> obterPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(projetoService.obterPorId(id));
+
 	}
 
-	@GetMapping ("/relatorio")
-	public ResponseEntity<Projeto> relatorio(@RequestParam Long idProjeto) {
+	@GetMapping("/relatório/{id}")
+	@Operation(summary = "Retornar tarefas do projeto", description = "Retorna as tarefas atribuídas ao projeto", tags = {
+			"Projetos" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+					@ApiResponse(responseCode = "400", description = "Solicitação incorreta"),
+					@ApiResponse(responseCode = "401", description = "Não autorizado"),
+					@ApiResponse(responseCode = "403", description = "Proibido"),
+					@ApiResponse(responseCode = "404", description = "Não encontrado"),
+					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+	public ResponseEntity<Projeto> relatorio(@PathVariable Long idProjeto) {
 		return ResponseEntity.ok(projetoService.relatorioTarefas(idProjeto));
 	}
-	/* 
-	@GetMapping ("/{id}")
-	public ResponseEntity<ProjetoResponseDto> findById (@PathVariable Long id ){
-		return  ResponseEntity.ok(projetoService.findById(id));
-		
-	}
-	*/
+
 	@PostMapping
+	@Operation(summary = "Adicionar perfil de usuário", description = "Adiciona um novo perfil de usuário", tags = {
+			"Projetos" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+					@ApiResponse(responseCode = "201", description = "Requisição bem sucedida"),
+					@ApiResponse(responseCode = "400", description = "Não autorizado"),
+					@ApiResponse(responseCode = "401", description = "Proibido"),
+					@ApiResponse(responseCode = "403", description = "Não encontrado"),
+					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
 	public ResponseEntity<ProjetoResponseDto> adicionar(@RequestBody ProjetoRequestDto dto) {
 		ProjetoResponseDto projeto = projetoService.cadastrar(dto);
-		return new ResponseEntity<>(projeto,HttpStatus.CREATED);
+		return new ResponseEntity<>(projeto, HttpStatus.CREATED);
 	}
-	
-	
-	@PutMapping ("/{id}")
-	public ResponseEntity<ProjetoResponseDto> atualizar(@PathVariable Long id, @RequestBody ProjetoRequestDto dto){
-		ProjetoResponseDto projeto = projetoService.atualizar(id,dto);
-		return new ResponseEntity<>(projeto,HttpStatus.OK);
+
+	@PutMapping("/{id}")
+	@Operation(summary = "Atualizar um perfil de usuário", description = "Atualiza dados de um perfil de usuário", tags = {
+			"Projetos" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+					@ApiResponse(responseCode = "400", description = "Não autorizado"),
+					@ApiResponse(responseCode = "401", description = "Proibido"),
+					@ApiResponse(responseCode = "403", description = "Não encontrado"),
+					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+	public ResponseEntity<ProjetoResponseDto> atualizar(@PathVariable Long id, @RequestBody ProjetoRequestDto dto) {
+		ProjetoResponseDto projeto = projetoService.atualizar(id, dto);
+		return new ResponseEntity<>(projeto, HttpStatus.OK);
 	}
-	
-	@DeleteMapping ("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Long id){
+
+	@DeleteMapping("/{id}")
+	@Operation(summary = "Deletar perfil de usuário", description = "Deleta um perfil de usuário", tags = {
+			"Projetos" }, responses = { @ApiResponse(description = "Sucesso", responseCode = "200", content = {
+					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerfilUsuarioResponseDto.class))) }),
+					@ApiResponse(responseCode = "204", description = "Solicitação bem sucedida"),
+					@ApiResponse(responseCode = "400", description = "Não autorizado"),
+					@ApiResponse(responseCode = "401", description = "Proibido"),
+					@ApiResponse(responseCode = "403", description = "Não encontrado"),
+					@ApiResponse(responseCode = "500", description = "Erro interno do servidor"), })
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		projetoService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
 }
-
-
-
