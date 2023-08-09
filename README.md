@@ -1,7 +1,8 @@
-# TrabFinalApiRestFull
-Trabalho final em grupo para construcao de uma Api RestFull em java para uma aplicacao de tarefas e projetos com validacao de token, autorizacao de login e senha com criptografia.
+<h1> Trabalho Final de Api RestFull em Grupo</h1>
 
-PS: Quem precisar pegar o trabalho, vou disponibiliar ele aqui zipado completo. 
+<p>Trabalho final em grupo para construção de uma Api RestFull em java para uma aplicação de tarefas e projetos com validação de token (JWT), autorização de login e senha com criptografia. Fizemos também um Swagger para documentar as API`s.
+
+<p>PS: Quem precisar pegar o trabalho, vou disponibiliar ele aqui zipado completo. </p>
 
 <img width="1792" alt="Captura de Tela 2023-05-29 às 23 19 57" src="https://github.com/marceloabbadia/TrabFinalApiRestFull/assets/112344339/27f73d0e-9bba-4253-8981-93ec6b7feffa">
 
